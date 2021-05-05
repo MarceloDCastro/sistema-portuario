@@ -11,12 +11,11 @@ public class SistemaPortuarioApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(SistemaPortuarioApplication.class, args);
-		System.out.println("Ola Mundooooooo!");
 	}
 	
 	@GetMapping("/")
 	  public String hello() {
-	    return "Olá mundo!!";
+	    return "Hello World!!!";
 	  }
 
 }
