@@ -3,8 +3,10 @@ package com.t2s.demo;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 @SpringBootApplication
+@RestController
 public class SistemaPortuarioApplication {
 
 	public static void main(String[] args) {
@@ -14,7 +16,7 @@ public class SistemaPortuarioApplication {
 	
 	@GetMapping("/")
 	  public String hello() {
-	    return "Olá mundo!";
+	    return "Olá mundo!!";
 	  }
 
 }
