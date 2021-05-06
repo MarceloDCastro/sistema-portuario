@@ -19,30 +19,34 @@ import com.t2s.sistemaportuario.service.ContainerService;
 
 @RestController
 @RequestMapping("/containers")
-public class ContainerController {
+public class ContainerController implements ControllerInterface<Container>{
 	
 	@Autowired
 	private ContainerService service;
 	
+	@Override
 	@GetMapping
 	public ResponseEntity<List<Container>> getAll (){
 		return ResponseEntity.ok(service.findAll());
 	}
 	
+	@Override
 	@GetMapping(value = "/{id}")
 	public ResponseEntity<?> get (@PathVariable("id") Long id){
-		Container _container = service.find(id);
+		Container _container = service.findById(id);
 		if (_container != null) 
 			return ResponseEntity.ok(_container);
 		return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
 	}
 	
+	@Override
 	@PostMapping
 	public ResponseEntity<Container> post (@RequestBody Container container){
 		service.create(container);
 		return ResponseEntity.ok(container);
 	}
 	
+	@Override
 	@PutMapping
 	public ResponseEntity<?> put (@RequestBody Container container){
 		if (service.update(container))
@@ -50,6 +54,7 @@ public class ContainerController {
 		return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
 	}
 	
+	@Override
 	@DeleteMapping(value = "/{id}")
 	public ResponseEntity<?> delete (@PathVariable("id") Long id){
 		if (service.delete(id))

@@ -1,36 +1,53 @@
 package com.t2s.sistemaportuario.service;
 
 import java.util.List;
+import java.util.Optional;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.t2s.sistemaportuario.model.Container;
+import com.t2s.sistemaportuario.repositories.ContainerRepository;
 
 @Service
-public class ContainerService {
+public class ContainerService implements ServiceInterface<Container> {
 
-	//Métodos: insert, findAll, find, update, delete
+	@Autowired
+	private ContainerRepository repository;
 	
-	public void create (Container container) {
+	@Override
+	public Container create(Container obj) {
+		repository.save(obj);
+		return obj;
 	}
-	
-	public List<Container> findAll(){
-		
+
+	@Override
+	public Container findById(Long id) {
+		Optional<Container> _container = repository.findById(id);
+		return _container.orElse(null);
 	}
-	
-	public Container find(Container container){
+
+	@Override
+	public List<Container> findAll() {
+		return repository.findAll();
 	}
-	
-	public Container find(Long id) {
+
+	@Override
+	public boolean update(Container obj) {
+		if (repository.existsById(obj.getId())) {
+			repository.save(obj);
+			return true;
+		}
+		return false;
 	}
-	
-	public boolean update(Container container) {
-		Container _container = find(container);
+
+	@Override
+	public boolean delete(Long id) {
+		if (repository.existsById(id)) {
+			repository.deleteById(id);
+			return true;
+		}
+		return false;
 	}
-	
-	public boolean delete (Long id) {
-		Container _container  = find(id);
-	}
-	
-	
+
 }
