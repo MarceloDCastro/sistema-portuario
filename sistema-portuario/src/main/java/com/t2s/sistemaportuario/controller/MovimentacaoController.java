@@ -14,52 +14,52 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.t2s.sistemaportuario.model.Container;
-import com.t2s.sistemaportuario.service.ContainerService;
+import com.t2s.sistemaportuario.model.Movimentacao;
+import com.t2s.sistemaportuario.service.MovimentacaoService;
 
 @RestController
-@RequestMapping("/containers")
-public class ContainerController implements ControllerInterface<Container>{
+@RequestMapping("/movimentacoes")
+public class MovimentacaoController implements ControllerInterface<Movimentacao>{
 	
 	@Autowired
-	private ContainerService service;
-	
+	private MovimentacaoService service;
+
 	@Override
 	@GetMapping
-	public ResponseEntity<List<Container>> getAll (){
+	public ResponseEntity<List<Movimentacao>> getAll() {
 		return ResponseEntity.ok(service.findAll());
 	}
-	
+
 	@Override
 	@GetMapping(value = "/{id}")
-	public ResponseEntity<?> get (@PathVariable("id") Long id){
-		Container _container = service.findById(id);
-		if (_container != null) 
-			return ResponseEntity.ok(_container);
+	public ResponseEntity<?> get(@PathVariable("id") Long id) {
+		Movimentacao _movimentacao = service.findById(id);
+		if (_movimentacao != null) 
+			return ResponseEntity.ok(_movimentacao);
 		return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
 	}
-	
+
 	@Override
 	@PostMapping
-	public ResponseEntity<Container> post (@RequestBody Container container){
-		service.create(container);
-		return ResponseEntity.ok(container);
+	public ResponseEntity<Movimentacao> post(@RequestBody Movimentacao movimentacao) {
+		service.create(movimentacao);
+		return ResponseEntity.ok(movimentacao);
 	}
-	
+
 	@Override
 	@PutMapping
-	public ResponseEntity<?> put (@RequestBody Container container){
-		if (service.update(container))
-			return ResponseEntity.ok(container);
+	public ResponseEntity<?> put(@RequestBody Movimentacao movimentacao) {
+		if (service.update(movimentacao))
+			return ResponseEntity.ok(movimentacao);
 		return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
 	}
-	
+
 	@Override
 	@DeleteMapping(value = "/{id}")
-	public ResponseEntity<?> delete (@PathVariable("id") Long id){
+	public ResponseEntity<?> delete(@PathVariable("id") Long id) {
 		if (service.delete(id))
 			return ResponseEntity.ok().build();
 		return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
 	}
-
+	
 }
