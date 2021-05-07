@@ -1,38 +1,30 @@
 package com.t2s.sistemaportuario.model;
 
-import java.io.Serializable;
-
+import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.Table;
 
 @Entity
-public class Container implements Serializable {	
+@Table(name = "tb_container")
+public class Container extends AbstractEntity {	
 	private static final long serialVersionUID = 1L;
-	
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
+
+	@Column(name = "nm_cliente", nullable = false, length = 80)
 	private String nomeCliente;
+	
+	@Column(name = "cd_container", nullable = false, length = 11)
 	private String numero;
+	
+	@Column(name = "ds_tipo", nullable = false)
 	private Integer tipo;
-	private boolean cheio;
-	private String Categoria;
+	
+	@Column(name = "ds_status", nullable = false)
+	private StatusContainer status;
+	
+	@Column(name = "ds_Categoria", nullable = false)
+	private CategoriaContainer categoria;
 	
 	public Container() {
-	}
-
-	public Container(Long id) {
-		this.id = id;
-	}
-
-	public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
 	}
 
 	public String getNomeCliente() {
@@ -59,51 +51,20 @@ public class Container implements Serializable {
 		this.tipo = tipo;
 	}
 
-	public boolean isCheio() {
-		return cheio;
+	public StatusContainer getStatus() {
+		return status;
 	}
 
-	public void setCheio(boolean cheio) {
-		this.cheio = cheio;
+	public void setStatus(StatusContainer status) {
+		this.status = status;
 	}
 
-	public String getCategoria() {
-		return Categoria;
+	public CategoriaContainer getCategoria() {
+		return categoria;
 	}
 
-	public void setCategoria(String categoria) {
-		Categoria = categoria;
+	public void setCategoria(CategoriaContainer categoria) {
+		this.categoria = categoria;
 	}
-
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + ((id == null) ? 0 : id.hashCode());
-		return result;
-	}
-
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		Container other = (Container) obj;
-		if (id == null) {
-			if (other.id != null)
-				return false;
-		} else if (!id.equals(other.id))
-			return false;
-		return true;
-	}
-
 	
-
-	
-
-	
-
 }
